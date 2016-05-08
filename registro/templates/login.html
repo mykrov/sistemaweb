@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<title>Bienvenido-Identifiquese</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<style>
+		body{
+			padding-top: 40px;
+			padding-bottom: 40px;
+		}
+		.login {
+			max-width: 330px;
+			padding: 15px;
+			margin: 0 auto;
+		}
+		#sha{
+			max-width: 340px;
+			-webkit-box-shadow: 0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+			-moz-box-shadow:    0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+			box-shadow: 		0px 0px 18px 0px rgba(48, 50, 50, 0.48);
+			border-radius: 6%;
+		}	
+
+	</style>
+
+<body>
+	<!--Imagen de Arriba-->
+	<div class="container well">
+		<div class="row">
+			<div class="col-md-12">
+				<img src="../imagenes/medicina-banner.jpg" class="img-responsive center-block" id="logo-bienvenido">
+				
+			</div>
+		</div>
+	</div>
+	<br />
+	<!--Contenedor del formulario de login-->
+	<div class="container well" id="sha">
+		<div class="row">
+			<div class="col-md-12">
+				<form>
+					<div class="form-group">
+						<label for="usuario">Usuario</label>
+						<input type="text" class="form-control" id="usuario" placeholder="Nombre de Usuario" name="usuario" required>
+					</div>
+					<div class="form-group">
+						<label for="contraseña">Contraseña</label>
+						<input type="password" class="form-control" id="contraseña" placeholder="Contraseña" name="contraseña" required>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+					<p class="help-block"><a href="#">Problemas de Inicio?</a></p>
+					
+				</form>
+			</div>	
+		</div>
+
+	</div>
+	
+	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+</body>
+</html>
