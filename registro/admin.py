@@ -1,3 +1,7 @@
 from django.contrib import admin
+from registro.models import Registro
+class Registrados(admin.ModelAdmin):
+	list_display=('nombre','apellido','cedula')
 
-# Register your models here.
+
+admin.site.register(Registro,Registrados)
