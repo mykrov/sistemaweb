@@ -3,13 +3,15 @@ from django.http import HttpResponse,Http404
 
 # Create your views here.
 
-#Vista de Prueba para URLs
-
+#Vista de registro de pacientes
 def registrop (request):
-	return HttpResponse('Hola esto es el registro de un paciente')
+	return render(request,'registrotabs.html',{})
 
 
 #Vista del Login
+def inicio (request):
+	return render(request,'login.html',{})
 
-def login (request):
-	return HttpResponse('login.html')
+#vista principal
+def historia (request):
+	return render(request,'historia.html',{})

@@ -1,10 +1,12 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
 	<title>Bienvenido-Identifiquese</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type:"text/css" href="{% static 'css/bootstrap.css' %}"/>
+	
 	<style>
 		body{
 			padding-top: 40px;
@@ -30,7 +32,7 @@
 	<div class="container well">
 		<div class="row">
 			<div class="col-md-12">
-				<img src="../imagenes/medicina-banner.jpg" class="img-responsive center-block" id="logo-bienvenido">
+				<img src="{% static 'imagenes/medicina-banner.jpg' %}" class="img-responsive center-block" id="logo-bienvenido"/>
 				
 			</div>
 		</div>
@@ -40,7 +42,7 @@
 	<div class="container well" id="sha">
 		<div class="row">
 			<div class="col-md-12">
-				<form>
+				<form method="POST" action="">{% csrf_token %}
 					<div class="form-group">
 						<label for="usuario">Usuario</label>
 						<input type="text" class="form-control" id="usuario" placeholder="Nombre de Usuario" name="usuario" required>
@@ -50,7 +52,7 @@
 						<input type="password" class="form-control" id="contraseña" placeholder="Contraseña" name="contraseña" required>
 					</div>
 					<button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
-					<p class="help-block"><a href="#">Problemas de Inicio?</a></p>
+					<p class="help-block"><a href="#">Recordar Contraseña</a></p>
 					
 				</form>
 			</div>	
@@ -58,8 +60,9 @@
 
 	</div>
 	
-	
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="{% static "js/jquery-1.12.1.js" %}"></script>
+	<script src="{% static "js/form-seleccion.js" %}"></script>  	
+	<script src="{% static "js/bootstrap.js" %}"></script>
+	<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
 </body>
 </html>
