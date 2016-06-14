@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block seccion %}
+    <h1>Registro de Paciente</h1>
+{% endblock seccion %}
+
+{% block maincontent %}
+    <form method="POST" action="">{% csrf_token %}
+    {{formulario|bootstrap_horizontal}}
+    <button type="submit">Registrar</button>
+{% endblock maincontent %}

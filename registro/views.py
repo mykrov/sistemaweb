@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,Http404
+from .forms import RegistradoForm
+from .models import Registro
 
 # Create your views here.
 
@@ -15,3 +17,14 @@ def inicio (request):
 #vista principal
 def historia (request):
 	return render(request,'historia.html',{})
+
+#vista de Prueva de forms
+
+def manuel (request):
+	formulario = RegistradoForm(request.POST or None)
+	if formulario.is_valid():
+		formulario.save()
+	context = {
+		"formulario":formulario
+	}
+	return render(request,'manuel.html',context)
