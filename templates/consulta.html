@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block seccion %}
+    <h1>Consulta</h1>
+{% endblock seccion %}
+
+{% block maincontent %}
+	<form  method="POST" action="">{% csrf_token %}
+		<h3>Enfermedades de Notificacion Obligatoria</h3>
+		 {{formularioConsulta|bootstrap_horizontal}}
+	   <!--  <select>
+	    {% for objeto in listanEnf %}
+	    	<option value={{ objeto.cod_enfermedad }}>{{ objeto.nombre_enfermedad}}
+	    {% endfor %}	
+		</select> -->
+		<hr>
+	    <button type="submit">Guardar Consulta</button>
+    </form>
+{% endblock maincontent %}

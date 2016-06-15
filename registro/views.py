@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,Http404
-from .forms import RegistradoForm
-from .models import Registro
+from .forms import RegistradoForm, ConsultaForm
+from .models import Registro, Enfermedad
 
 # Create your views here.
 
@@ -28,3 +28,13 @@ def manuel (request):
 		"formulario":formulario
 	}
 	return render(request,'manuel.html',context)
+
+def consulta (request):
+	listanEnf = Enfermedad.objects.all();
+	formularioConsulta = ConsultaForm(request.POST or None)
+	if formularioConsulta.is_valid():
+		formularioConsulta.save()
+	context = {
+		"formularioConsulta":formularioConsulta
+	}
+	return render(request,'consulta.html',context)

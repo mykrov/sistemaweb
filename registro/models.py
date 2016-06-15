@@ -1,6 +1,7 @@
 from django.db import models
-from smart_selects.db_fields import ChainedForeignKey
+from datetime import datetime
 
+# Opciones de Seleccion para los  formularios de ubicacion.
 MUNICIPIO_CHOICES = (
     ('CP', 'Cruz Paredes'),
     ('AAT', 'Alb.ArveloTorrealba'),
@@ -57,13 +58,12 @@ SEX_CHOICES =(
 	('M', 'M'),
 	('F', 'F'),
 )
-
-
 # Create your models here.
+# Modelo usado para los registros de pacientes nuevos. PK se usa la Cedula
 class Registro(models.Model):
 	nombre=models.CharField(max_length=50)
 	apellido=models.CharField(max_length=50)
-	cedula=models.IntegerField(default=1)
+	cedula=models.IntegerField(default=1, primary_key=True, unique=True)
 	telefono=models.CharField(max_length=11,blank=True,null=True)
 	edad=models.IntegerField(default=1)
 	sexo=models.CharField(max_length=6, choices=SEX_CHOICES)
@@ -71,29 +71,39 @@ class Registro(models.Model):
 	parroquia=models.CharField(max_length=50, choices=PARROQUIA_CHOICES)
 	urb=models.CharField(max_length=50, choices=URB_CHOICES)
 	direccion=models.CharField(max_length=50)
-	timestamp = models.DateTimeField (auto_now_add=True, auto_now=False,null=True)
-	actualizado = models.DateTimeField (auto_now_add=False, auto_now=True,null=True)
+	timestamp = models.DateTimeField (auto_now_add=True, auto_now=False,null=False)
+	actualizado = models.DateTimeField (auto_now_add=False, auto_now=True,null=False)
 
 	def __str__(self):
-		return '%s %s' %(self.nombre,self.apellido)
+		return '%s %s %s' %(self.cedula,self.apellido,self.nombre)
 
-class Continent(models.Model):
-        name = models.CharField(max_length=255)
-        def __str__(self):
-        	return self.name
+class Enfermedad(models.Model):
+	cod_enfermedad=models.CharField(max_length=20, primary_key=True, unique=True)
+	nombre_enfermedad=models.CharField(max_length=100,null=False)
 
-class Country(models.Model):
-        continent = models.ForeignKey(Continent)
-        name = models.CharField(max_length=255)
-        def __str__(self):
-        	return self.name
+	def __str__(self):
+		return '%s %s' %(self.cod_enfermedad,self.nombre_enfermedad)
 
-class Location(models.Model):
-    continent = models.ForeignKey(Continent)
-    country = models.ForeignKey(Country)
-    name = models.CharField(max_length=50, null=True)
-    def __str__(self):
-    	return self.name
-    
-    
-  
+class Medico(models.Model):
+	nombre_medico=models.CharField(max_length=100, null=True)
+	apellido_medico=models.CharField(max_length=100, null=True)
+	cedula_medico=models.IntegerField(default=1, primary_key=True, unique=True)
+	
+	def __str__(self):
+		return '%s %s' %(self.cedula_medico,self.nombre_medico)
+
+class Consulta(models.Model):
+	paciente=models.ForeignKey(Registro, on_delete=models.CASCADE)
+	fechaConsulta=models.DateTimeField(default=datetime.now(), null=False)
+	enfermedad_presente=models.ForeignKey(Enfermedad,null=False)
+	tratamiento=models.CharField(max_length=100, null=True)
+	observacion=models.CharField(max_length=100, null=True)
+	medico_tratante=models.ForeignKey(Medico, null=True)
+	def __str__(self):
+		return '%s %s' %(self.paciente,self.fechaConsulta)
+
+
+
+
+
+
