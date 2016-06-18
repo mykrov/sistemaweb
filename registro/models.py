@@ -93,14 +93,15 @@ class Medico(models.Model):
 		return '%s %s' %(self.cedula_medico,self.nombre_medico)
 
 class Consulta(models.Model):
-	paciente=models.ForeignKey(Registro, on_delete=models.CASCADE)
-	fechaConsulta=models.DateTimeField(default=datetime.now(), null=False)
+	fecha_consulta = models.DateTimeField()
+	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE)
 	enfermedad_presente=models.ForeignKey(Enfermedad,null=False)
-	tratamiento=models.CharField(max_length=100, null=True)
-	observacion=models.CharField(max_length=100, null=True)
-	medico_tratante=models.ForeignKey(Medico, null=True)
+	tratamiento = models.CharField(max_length=100, null=True)
+	observacion = models.CharField(max_length=100, null=True)
+	medico_tratante = models.ForeignKey(Medico, null=True)
+	
 	def __str__(self):
-		return '%s %s' %(self.paciente,self.fechaConsulta)
+		return '%s %s' %(self.paciente,self.fecha_consulta)
 
 
 
