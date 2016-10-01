@@ -30,9 +30,7 @@ def manuel (request):
 	return render(request,'manuel.html',context)
 
 def consulta (request):
-	#fromulario usando el forms.Form
-	#formularioPie = FormularioCo (request.POST or None)
-	
+		
 	#formulario usado forms.ModelForm
 	formularioConsulta = ConsultaForm(request.POST or None)
 	

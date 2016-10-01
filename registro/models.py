@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 
 # Opciones de Seleccion para los  formularios de ubicacion.
 MUNICIPIO_CHOICES = (
@@ -93,7 +94,7 @@ class Medico(models.Model):
 		return '%s %s' %(self.cedula_medico,self.nombre_medico)
 
 class Consulta(models.Model):
-	fecha_consulta = models.DateTimeField()
+	fecha_consulta = models.DateTimeField(default=timezone.now)
 	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE)
 	enfermedad_presente=models.ForeignKey(Enfermedad,null=False)
 	tratamiento = models.CharField(max_length=100, null=True)

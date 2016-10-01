@@ -18,7 +18,7 @@ class ConsultaForm (forms.ModelForm):
 	class Meta:
 		
 		model = Consulta
-		fields = ["paciente","enfermedad_presente","tratamiento","observacion","medico_tratante",]
+		fields = ["paciente","enfermedad_presente","tratamiento","observacion","medico_tratante","fecha_consulta",]
 		widgets = {
             'tratamiento': Textarea(attrs={'cols': 40, 'rows': 10}), 
             'observacion': Textarea(attrs={'cols': 5, 'rows': 2}),
