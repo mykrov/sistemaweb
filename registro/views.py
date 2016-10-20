@@ -1,14 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse,Http404
 from .forms import RegistradoForm, ConsultaForm
 from .models import Registro, Enfermedad, Consulta
 
 # Create your views here.
-
-#Vista de registro de pacientes
-def registrop (request):
-	return render(request,'registrotabs.html',{})
-
 
 #Vista del Login
 def inicio (request):
@@ -40,3 +35,22 @@ def consulta (request):
 		"formularioConsulta":formularioConsulta
 	}
 	return render(request,'consulta.html',contexto)
+
+def buscar_paciente (request, ci):
+	paciente = Registro.objects.get(cedula=ci)
+	if request.method == 'GET':
+		form = RegistradoForm(instance=paciente)
+		table = Consulta.objects.filter(paciente=ci)
+		#esta es para generar el nombre del paciente para el html
+		nombre_paciente = paciente.nombre + ' '+paciente.apellido
+		#muestro el nombre del paciente consultado por consola
+		print ('consulta a: '+ paciente.nombre + ' '+paciente.apellido)
+
+	else:
+		form = RegistradoForm(request.POST, instance=paciente)
+		if form.is_valid():
+			form.save()
+		#return redirect	('registro:manuel')
+		#paso todos los contextos, primero el formulario, luego pra crear la tabla y ultimo el nombre para el html
+	contexto = {"form":form, "table":table, "nombre_paciente":nombre_paciente,}
+	return render(request,'buscar.html',contexto)	
