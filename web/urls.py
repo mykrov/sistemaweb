@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from registro.views import inicio, historia,manuel,consulta, buscar_paciente
+from registro.views import inicio, historia,manuel,consulta, buscar_paciente, estadistica1
 
 
 #from registro import views
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^consulta/',consulta),
     #el  parametro de la URL debe coincidir con el parametro de la vista, en este caso es 'ci'
     url(r'^buscar/(?P<ci>\d+)/',buscar_paciente, name='busqueda_paciente'),
+    url(r'^estadisticas/',estadistica1),
 ]
 if settings.DEBUG:
 	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

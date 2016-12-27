@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse,Http404
 from .forms import RegistradoForm, ConsultaForm
 from .models import Registro, Enfermedad, Consulta
+from chartit import DataPool, Chart
+
 
 # Create your views here.
 
@@ -54,3 +56,28 @@ def buscar_paciente (request, ci):
 		#paso todos los contextos, primero el formulario, luego pra crear la tabla y ultimo el nombre para el html
 	contexto = {"form":form, "table":table, "nombre_paciente":nombre_paciente,}
 	return render(request,'buscar.html',contexto)	
+
+def estadistica1 (request):
+	#se buscan los datos necesarios para el grafico
+	datos=DataPool(
+		series=
+		[{'options':{
+			'source': Consulta.objects.all()},
+			'terms':['enfermedad_presente','fecha_consulta']}
+		])
+	#se especifica el grafico
+	grafica=Chart(
+		datasource = datos,
+		series_options =
+			[{'options':{'type':'line','stacking':False},
+			'terms':{
+				'fecha_consulta':['enfermedad_presente']
+			}}],
+		chart_options =
+			{'tittle':{'text':'Estadisticas para'},
+			'xAxis': {
+				'tittle':{
+				'text': 'enfermedad'}}})
+	#Mandamos el Grafico
+	context = {'grafico':grafica}
+	return render (request, 'grafico.html',context )

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load chartit %}
+{% block head %}
+{{ grafico|load_charts:"container" }}
+{% endblock head %}
+
+{% block seccion %}
+    <h1>Estadisticas</h1>
+{% endblock seccion %}
+
+{% block maincontent %}
+<div id='container'> Chart will be rendered here </div>
+{% endblock maincontent %}
