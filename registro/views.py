@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.db.models import Count,Avg
 from django.http import HttpResponse,Http404
 from .forms import RegistradoForm, ConsultaForm
 from .models import Registro, Enfermedad, Consulta
-from chartit import DataPool, Chart
+from chartit import DataPool, Chart, PivotDataPool, PivotChart
+from django.core import serializers
 
 
 # Create your views here.
@@ -55,29 +57,14 @@ def buscar_paciente (request, ci):
 		#return redirect	('registro:manuel')
 		#paso todos los contextos, primero el formulario, luego pra crear la tabla y ultimo el nombre para el html
 	contexto = {"form":form, "table":table, "nombre_paciente":nombre_paciente,}
-	return render(request,'buscar.html',contexto)	
+	return render(request,'buscar.html',contexto)
+
+def crearJson (request):
+	q=Consulta.objects.values("enfermedad_presente__nombre_enfermedad").annotate(Count("enfermedad_presente"))
+	data = serializers.serialize('json',q)
+	return HttpResponse(lista, content_type='application/json')
 
 def estadistica1 (request):
-	#se buscan los datos necesarios para el grafico
-	datos=DataPool(
-		series=
-		[{'options':{
-			'source': Consulta.objects.all()},
-			'terms':['enfermedad_presente','fecha_consulta']}
-		])
-	#se especifica el grafico
-	grafica=Chart(
-		datasource = datos,
-		series_options =
-			[{'options':{'type':'line','stacking':False},
-			'terms':{
-				'fecha_consulta':['enfermedad_presente']
-			}}],
-		chart_options =
-			{'tittle':{'text':'Estadisticas para'},
-			'xAxis': {
-				'tittle':{
-				'text': 'enfermedad'}}})
-	#Mandamos el Grafico
-	context = {'grafico':grafica}
-	return render (request, 'grafico.html',context )
+	datos = Consulta.objects.values("enfermedad_presente__nombre_enfermedad").annotate(Count("enfermedad_presente"))
+	context = {'datos': datos}
+	return render (request, 'grafico.html',context)

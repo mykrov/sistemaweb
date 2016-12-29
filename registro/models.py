@@ -93,6 +93,10 @@ class Medico(models.Model):
 	def __str__(self):
 		return '%s %s' %(self.cedula_medico,self.nombre_medico)
 
+class ManejadorEnfermedad (models.Manager):
+	def contar (self,keyword):
+		return self.filter(enfermedad_presente__nombre_enfermedad__icontains=keyword).count()
+
 class Consulta(models.Model):
 	fecha_consulta = models.DateTimeField(default=timezone.now)
 	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE)
@@ -100,9 +104,9 @@ class Consulta(models.Model):
 	tratamiento = models.CharField(max_length=100, null=True)
 	observacion = models.CharField(max_length=100, null=True)
 	medico_tratante = models.ForeignKey(Medico, null=True)
-	
+	objects = ManejadorEnfermedad()
 	def __str__(self):
-		return '%s %s' %(self.paciente,self.fecha_consulta)
+		return '%s %s %s' %(self.paciente,self.fecha_consulta,self.enfermedad_presente)
 
 
 
