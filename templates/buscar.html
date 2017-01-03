@@ -2,7 +2,7 @@
 {% load bootstrap %}
 
 {% block seccion %}
-    <h1>Resustado Busqueda</h1>
+    <h1>Resustado de la Busqueda</h1>
 {% endblock seccion %}
 
 {% block maincontent %}
@@ -10,8 +10,8 @@
     
     {{form|bootstrap_horizontal}}
 
-    <button type="submit" class="btn btn-primary center-block btn-lg">Modificar</button>
-    <hr>
+    <!-- <button type="submit" class="btn btn-warning center-block btn-lg">Modificar</button>
+    <hr> -->
 {% endblock maincontent %}
 
 <div class="row">
@@ -19,14 +19,14 @@
 {% block tabla %}
            
 				<h1 class="text-center">Visitas del Paciente {{nombre_paciente}}</h1>
-				<table class = "table table-hover">
+				<table class="table table-condensed 	table-hover table-bordered">
 					<thead>
 						<tr>
-							<td>Fecha</td>
-							<td>Doctor</td>
-							<td>Enfermedad</td>
-							<td>Tratamiento</td>
-							<td>Observacion</td>
+							<td><h4 class="text-center">Fecha</h4></td>
+							<td><h4 class="text-center">Doctor</h34</td>
+							<td><h4 class="text-center">Enfermedad</h4></td>
+							<td><h4 class="text-center">Tratamiento</h4></td>
+							<td><h4 class="text-center">Observacion</h4></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -52,5 +52,6 @@
 				</table>
 
 {% endblock tabla %}
-			</div>
+			
 	</div>
+</div>

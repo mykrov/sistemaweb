@@ -64,7 +64,7 @@ SEX_CHOICES =(
 class Registro(models.Model):
 	nombre=models.CharField(max_length=50)
 	apellido=models.CharField(max_length=50)
-	cedula=models.IntegerField(default=1, primary_key=True, unique=True)
+	cedula=models.IntegerField(primary_key=True, unique=True)
 	telefono=models.CharField(max_length=11,blank=True,null=True)
 	edad=models.IntegerField(default=1)
 	sexo=models.CharField(max_length=6, choices=SEX_CHOICES)

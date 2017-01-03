@@ -16,6 +16,7 @@
         padding-top: 70px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
+   
     </style>
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
@@ -59,10 +60,7 @@
                         <a href="/manuel/">Registrar Paciente</a>
                     </li>
                     <li>
-                        <a href="/consulta/">Generar Consulta</a>
-                    </li>
-                    <li>
-                        <a href="/consulta/">Buscar Paciente</a>
+                        <a href="/consulta/">Consulta</a>
                     </li>
                     <li>
                         <a href="/estadisticas/">Estadisticas</a>
@@ -71,15 +69,24 @@
                         <a href="/consulta/">Reportes</a>
                     </li>
                     <li>
-                        <a href="/consulta/">Administracion</a>
+                        <a href="/admin/">Administracion</a>
                     </li>
-                </ul>
+                    <li>
+                        <form class="form-inline " method="POST" action="/buscar/">{% csrf_token %}
+                                <div class="form-group">
+                                <input type="text" name= "busqueda" class="form-control input-md" placeholder="Buscar Cedula">
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-info navbar-btn" type="submit">Buscar</button> 
+                                </div>
+                        </form>
+                    </li>
+                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-
     <!-- Page Content -->
     <div class="container well">
 

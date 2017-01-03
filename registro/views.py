@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count,Avg
-from django.http import HttpResponse,Http404
+from django.http import HttpResponse,Http404, HttpResponseRedirect
 from .forms import RegistradoForm, ConsultaForm
 from .models import Registro, Enfermedad, Consulta
-from chartit import DataPool, Chart, PivotDataPool, PivotChart
+from django.views.generic import TemplateView
 from django.core import serializers
+from django.contrib import messages
 
 
 # Create your views here.
@@ -23,6 +24,8 @@ def manuel (request):
 	formulario = RegistradoForm(request.POST or None)
 	if formulario.is_valid():
 		formulario.save()
+		messages.success (request,"lsito")
+		#return redirect	('/manuel/')
 	context = {
 		"formulario":formulario
 	}
@@ -40,31 +43,34 @@ def consulta (request):
 	}
 	return render(request,'consulta.html',contexto)
 
-def buscar_paciente (request, ci):
-	paciente = Registro.objects.get(cedula=ci)
-	if request.method == 'GET':
-		form = RegistradoForm(instance=paciente)
-		table = Consulta.objects.filter(paciente=ci)
-		#esta es para generar el nombre del paciente para el html
-		nombre_paciente = paciente.nombre + ' '+paciente.apellido
-		#muestro el nombre del paciente consultado por consola
-		print ('consulta a: '+ paciente.nombre + ' '+paciente.apellido)
+def buscar_paciente (request):
+	search = request.POST['busqueda']
+	try:
+		paciente = Registro.objects.get(cedula=search)
+		if request.method == 'POST':
+			form = RegistradoForm(instance=paciente)
+			table = Consulta.objects.filter(paciente=search)
+			#esta es para generar el nombre del paciente para el html
+			nombre_paciente = paciente.nombre + ' '+paciente.apellido
+			#muestro el nombre del paciente consultado por consola
+			print ('consulta a: '+ paciente.nombre + ' '+paciente.apellido)
+			print (search)		
+	except Registro.DoesNotExist:
+		return HttpResponseRedirect('/manuel/')
 
-	else:
-		form = RegistradoForm(request.POST, instance=paciente)
-		if form.is_valid():
-			form.save()
-		#return redirect	('registro:manuel')
-		#paso todos los contextos, primero el formulario, luego pra crear la tabla y ultimo el nombre para el html
+	#paso todos los contextos, primero el formulario, luego pra crear la tabla y ultimo el nombre para el html
 	contexto = {"form":form, "table":table, "nombre_paciente":nombre_paciente,}
 	return render(request,'buscar.html',contexto)
 
-def crearJson (request):
-	q=Consulta.objects.values("enfermedad_presente__nombre_enfermedad").annotate(Count("enfermedad_presente"))
-	data = serializers.serialize('json',q)
-	return HttpResponse(lista, content_type='application/json')
-
 def estadistica1 (request):
+	#consulta total
 	datos = Consulta.objects.values("enfermedad_presente__nombre_enfermedad").annotate(Count("enfermedad_presente"))
-	context = {'datos': datos}
+	#Consulta por rango de fechas
+	desde='2016-01-01'
+	hasta='2016-10-21'
+	rango= '%s %s %s' 	%(desde,'a',hasta)
+	d=Consulta.objects.filter(fecha_consulta__range=[desde,hasta]).values('enfermedad_presente__nombre_enfermedad')
+	x= d.annotate(Count('enfermedad_presente__nombre_enfermedad'))
+	print (rango)
+	context = {'datos': datos,'porfecha':x,'desde':desde,'hasta':hasta, 'rango':rango }
 	return render (request, 'grafico.html',context)

@@ -41,9 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'registro',
     #para la seleccion dinamica del formulario de registro
-    'smart_selects', 
-    #Django CharIt
-    'chartit',
+    'smart_selects',
 
 ]
 
