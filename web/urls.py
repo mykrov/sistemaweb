@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from registro.views import inicio, buscar_paciente, historia, manuel, consulta, estadistica1, estadistica2
+from registro.views import inicio, buscar_paciente, manuel, consulta, estadistica1, estadistica2
 from django.contrib.auth.views import login, logout_then_login
 from django.contrib.auth.decorators import login_required
 
@@ -25,9 +25,6 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-   # url(r'', include('smart_selects.urls')),
-   # url(r'^inicio/$',inicio),
-    url(r'^historia/',login_required(historia), name='historia'),
     url(r'^manuel/',login_required(manuel),name='manuel'),
     url(r'^consulta/',login_required(consulta),name='consulta'),
     #el  parametro de la URL debe coincidir con el parametro de la vista, en este caso es 'ci'

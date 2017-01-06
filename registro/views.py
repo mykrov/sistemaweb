@@ -16,9 +16,6 @@ def inicio (request):
 	return render(request,'login.html',{})
 
 #vista principal
-def historia (request):
-	return render(request,'historia.html',{})
-
 #vista de Prueva de forms
 
 def manuel (request):
