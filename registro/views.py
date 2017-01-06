@@ -6,6 +6,7 @@ from .models import Registro, Enfermedad, Consulta
 from django.views.generic import TemplateView
 from django.core import serializers
 from django.contrib import messages
+from datetime import datetime, timedelta
 
 
 # Create your views here.
@@ -24,11 +25,9 @@ def manuel (request):
 	formulario = RegistradoForm(request.POST or None)
 	if formulario.is_valid():
 		formulario.save()
-		messages.success (request,"lsito")
-		#return redirect	('/manuel/')
-	context = {
-		"formulario":formulario
-	}
+		messages.success(request, 'El Paciente Fué Guardado con Éxito')
+		return HttpResponseRedirect('/manuel/') 
+	context = {"formulario":formulario}
 	return render(request,'manuel.html',context)
 
 def consulta (request):
@@ -38,9 +37,9 @@ def consulta (request):
 	
 	if formularioConsulta.is_valid():
 		formularioConsulta.save()
-	contexto = {
-		"formularioConsulta":formularioConsulta
-	}
+		messages.success(request, 'Consulta Guardada con Éxito') 
+		return HttpResponseRedirect('/consulta/')
+	contexto = {"formularioConsulta":formularioConsulta}
 	return render(request,'consulta.html',contexto)
 
 def buscar_paciente (request):
@@ -56,6 +55,7 @@ def buscar_paciente (request):
 			print ('consulta a: '+ paciente.nombre + ' '+paciente.apellido)
 			print (search)		
 	except Registro.DoesNotExist:
+		messages.warning(request, 'El Paciente no Existe,desea Registarlo?')
 		return HttpResponseRedirect('/manuel/')
 
 	#paso todos los contextos, primero el formulario, luego pra crear la tabla y ultimo el nombre para el html
@@ -69,8 +69,16 @@ def estadistica1 (request):
 	desde='2016-01-01'
 	hasta='2016-10-21'
 	rango= '%s %s %s' 	%(desde,'a',hasta)
-	d=Consulta.objects.filter(fecha_consulta__range=[desde,hasta]).values('enfermedad_presente__nombre_enfermedad')
+	d= Consulta.objects.filter(fecha_consulta__range=[desde,hasta]).values('enfermedad_presente__nombre_enfermedad')
 	x= d.annotate(Count('enfermedad_presente__nombre_enfermedad'))
-	print (rango)
 	context = {'datos': datos,'porfecha':x,'desde':desde,'hasta':hasta, 'rango':rango }
 	return render (request, 'grafico.html',context)
+
+def estadistica2 (request):
+	#Datos de la semana
+	semana = datetime.today() - timedelta(days=7)
+	hoy = datetime.today()
+	week = Consulta.objects.filter(fecha_consulta__gte=semana).values('enfermedad_presente__nombre_enfermedad')
+	x=week.annotate(Count('enfermedad_presente__nombre_enfermedad'))
+	contexto = {'porfecha':x,'semana':semana}
+	return render (request, 'graficos2.html',contexto)

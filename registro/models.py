@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 
 # Opciones de Seleccion para los  formularios de ubicacion.

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block seccion %}
+    <h1>Estadisticas ultimos 7 dias</h1>
+    <div class= "nav nav-pills nav-justified">
+        <li><a href="/estadisticas/">General</a></li>
+        <li class="active"><a href="/estadisticas2/">Ultimos 7 Dias</a></li>
+        <li><a href="#">Ultimo Mes</a></li>
+        <li><a href="#">Personalizado</a></li>
+    </div>
+{% endblock seccion %}
+{% block maincontent %}
+{% autoescape off %}
+
+<div class="col-md-6">
+    
+    <h4>Casos desde {{semana}} </h4>
+    <canvas id="7dias">></canvas>
+    
+</div>
+<script>
+var uni2 = {{ porfecha }};
+var ctx2 = document.getElementById("7dias");
+var porfechag = new Chart(ctx2, {
+    type: 'pie',
+    data: {
+        labels: uni2.map((el) => el.enfermedad_presente__nombre_enfermedad),
+        datasets: [{
+            label: 'Casos',
+            data: uni2.map((el) => el.enfermedad_presente__nombre_enfermedad__count),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+{% endautoescape %}
+{% endblock maincontent %}

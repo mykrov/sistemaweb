@@ -17,24 +17,29 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from registro.views import inicio, buscar_paciente, historia, manuel, consulta, estadistica1
-
+from registro.views import inicio, buscar_paciente, historia, manuel, consulta, estadistica1, estadistica2
+from django.contrib.auth.views import login, logout_then_login
+from django.contrib.auth.decorators import login_required
 
 #from registro import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('smart_selects.urls')),
-    url(r'^inicio/$',inicio),
-    url(r'^historia/',historia),
-    url(r'^manuel/',manuel),
-    url(r'^consulta/',consulta),
+   # url(r'', include('smart_selects.urls')),
+   # url(r'^inicio/$',inicio),
+    url(r'^historia/',login_required(historia), name='historia'),
+    url(r'^manuel/',login_required(manuel),name='manuel'),
+    url(r'^consulta/',login_required(consulta),name='consulta'),
     #el  parametro de la URL debe coincidir con el parametro de la vista, en este caso es 'ci'
     #url(r'^buscar/(?P<ci>\d+)/',buscar_paciente, name='busqueda_paciente'),
-    url(r'^buscar/',buscar_paciente, name='busqueda_paciente'),
-    url(r'^estadisticas/',estadistica1),
+    url(r'^buscar/',login_required(buscar_paciente), name='busqueda_paciente'),
+    url(r'^estadisticas/',login_required(estadistica1), name='estadisticas'),
+    url(r'^estadisticas2/',login_required(estadistica2), name='estadisticas2'),
+    url(r'accounts/login/',login,{'template_name':'login.html'},name='login'),
+    url(r'^logout/',logout_then_login,name='logout'),
+
  
-]
+] 
 if settings.DEBUG:
 	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 	               

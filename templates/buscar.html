@@ -1,32 +1,30 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
-
-{% block seccion %}
-    <h1>Resustado de la Busqueda</h1>
-{% endblock seccion %}
-
 {% block maincontent %}
-    <form method="POST" action="">{% csrf_token %}
+   <div class="panel panel-primary">
+      <div class="panel-heading text-center"><h2>Resultado de la Busqueda</h2></div>
+      <div class="panel-body">
+      	
+    	<form method="POST" action="">{% csrf_token %}
     
-    {{form|bootstrap_horizontal}}
-
-    <!-- <button type="submit" class="btn btn-warning center-block btn-lg">Modificar</button>
-    <hr> -->
+    	{{form|bootstrap_horizontal}}
+      </div>
+    </div>
 {% endblock maincontent %}
 
-<div class="row">
-	<div class="col-lg-12 text-center">
+
 {% block tabla %}
-           
-				<h1 class="text-center">Visitas del Paciente {{nombre_paciente}}</h1>
-				<table class="table table-condensed 	table-hover table-bordered">
+<div class="panel panel-primary">
+      <div class="panel-heading text-center"><h2>Visitas del Paciente {{nombre_paciente}}</h2></div>
+      <div class="panel-body">
+      	<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<td><h4 class="text-center">Fecha</h4></td>
-							<td><h4 class="text-center">Doctor</h34</td>
-							<td><h4 class="text-center">Enfermedad</h4></td>
-							<td><h4 class="text-center">Tratamiento</h4></td>
-							<td><h4 class="text-center">Observacion</h4></td>
+							<th class='col-lg-2'><h4><span class="glyphicon glyphicon-calendar"></span>Fecha</h4></td>
+							<th class='col-lg-2'><h4><span class="glyphicon glyphicon-user"></span> Doctor</h34</td>
+							<th class='col-lg-2'><h4><span class="glyphicon glyphicon-tag"></span>Enfermedad</h4></td>
+							<th class='col-lg-3'><h4><span class="glyphicon glyphicon-list-alt"></span>Tratamiento</h4></td>
+							<th class='col-lg-3'><h4><span class="glyphicon glyphicon-zoom-in"></span>Observación</h4></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,12 +44,13 @@
 							<td>Sin Registros</td>
 							<td>Sin Registros</td>
 							<td>Sin Registros</td>
+							<td>Sin Registros</td>
 						</tr>
 						{% endif %}
 					</tbody>
 				</table>
-
+      </div>
+    </div>
 {% endblock tabla %}
 			
-	</div>
-</div>
+	

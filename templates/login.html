@@ -45,11 +45,11 @@
 				<form method="POST" action="">{% csrf_token %}
 					<div class="form-group">
 						<label for="usuario">Usuario</label>
-						<input type="text" class="form-control" id="usuario" placeholder="Nombre de Usuario" name="usuario" required>
+						<input type="text" class="form-control" id="usuario" placeholder="Nombre de Usuario" name="username" required>
 					</div>
 					<div class="form-group">
 						<label for="contraseña">Contraseña</label>
-						<input type="password" class="form-control" id="contraseña" placeholder="Contraseña" name="contraseña" required>
+						<input type="password" class="form-control" id="contraseña" placeholder="Contraseña" name="password" required>
 					</div>
 					<button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
 					<p class="help-block"><a href="#">Recordar Contraseña</a></p>
