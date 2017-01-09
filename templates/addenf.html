@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block seccion %}
+    
+    
+{% endblock seccion %}
+
+{% block maincontent %}
+<div class="panel panel-primary">
+    <div class="panel-heading text-center"><h1>Soporte a Toma de Decisiones</h1></div>
+    <div class="panel-body">
+    <div class= "nav nav-pills nav-justified">
+        <li><a href="/std/">Agregar Plan</a></li>
+        <li class="active"><a href="/addenf/">Agregar Enfermedad</a></li>
+        <li><a href="#">Modificar Plan</a></li>
+        <li><a href="#">Ejecutar</a></li>  
+    </div>
+	<form  method="POST" action="">{% csrf_token %}
+		
+		
+		 {{formulario2|bootstrap_horizontal}}
+	  	<hr>
+	    <button type="submit" class="btn btn-primary center-block btn-lg">Guardar</button>
+    </form>
+    </div>
+</div>
+{% endblock maincontent %}

@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block head %}
+
+<script src="http://code.highcharts.com/maps/highmaps.js"></script>
+
+{% endblock head %}
+
+{% block seccion %}
+
+<h1>Mapa</h1>
+<div class= "nav nav-pills nav-justified">
+        <li><a href="/estadisticas/">General</a></li>
+        <li><a href="/estadisticas2/">Ultimos 7 Dias</a></li>
+        <li><a href="#">Ultimo Mes</a></li>
+        <li><a href="#">Personalizado</a></li>
+        <li class="active"><a href="/mapa">Mapa</a></li>
+    </div>
+<div id="container"></div>
+
+
+{% endblock seccion %}
+
+
+
+
+
+{% block afterJS %}
+{% autoescape off %}
+<script>
+var data = {{ datos }}
+$(function () {
+
+    // Initiate the chart
+    $('#container').highcharts('Map', {
+    chart: {
+                borderWidth: 1
+            },
+
+    title: {
+                text: 'US population density (/km²)'
+            },
+
+    legend: {
+                layout: 'horizontal',
+                borderWidth: 0,
+                backgroundColor: 'rgba(255,255,255,0.85)',
+                floating: true,
+                verticalAlign: 'top',
+                y: 25
+            },
+
+    mapNavigation: {
+                enabled: true
+            },
+
+    colorAxis: {
+                min: 1,
+                type: 'logarithmic',
+                minColor: '#EEEEFF',
+                maxColor: '#000022',
+                stops: [
+                    [0, '#EFEFFF'],
+                    [0.67, '#4444FF'],
+                    [1, '#000022']
+                ]
+            },
+          
+             
+    series: [
+	{
+		"type": "map",
+		"data": [
+			{
+				"name": "12 de Marzo",
+				"path": "M1,-966,115,-966L115,-847,1,-849z"
+			},
+			{
+				"name": "12 de Octubre",
+				"path": "M115,-964,287,-965L288,-847,115,-849z"
+			},
+			{
+				"name": "2 de Diciembre",
+				"path": "M287,-964,470,-964L470,-848,288,-849z"
+			},
+			{
+				"name": "Beltran Lucena",
+				"path": "M470,-964,668,-966L668,-847L470,-848z"
+			},
+			{
+				"name": "Buena Ventura",
+				"path": "M668,-966,827,-965L827,-849L668,-849z"
+			},
+			{
+				"name": "Buena Vista",
+				"path": "M827,-965L961,-965L961,-848,827,-849z"
+			},
+			{
+				"name": "Chico Toro",
+				"path": "M1,-849,0,-637L116,-637L115,-848z"
+			},
+			{
+				"name": "Conticinio",
+				"path": "M115,-846,286,-848,289,-636L114,-637z"
+			},
+			{
+				"name": "El Centro",
+				"path": "M288,-847,470,-848,470,-638,289,-637z"
+			},
+			{
+				"name": "Mercadito",
+				"path": "M472,-848,666,-847,667,-638,469,-638z"
+			},
+			{
+				"name": "El Nazareno",
+				"path": "M668,-847,826,-849,826,-639,667,-639Z"
+			},
+			{
+				"name": "El Retruque",
+				"path": "M827,-849,961,-848,962,-639L826,-639z"
+			},
+			{
+				"name": "Las Esmeraldas",
+				"path": "M0,-637,1,-468L115,-468L115,-637z"
+			},
+			{
+				"name": "La Manga",
+				"path": "M115,-636,288,-636,288,-468L114,-468z"
+			},
+			{
+				"name": "Las Trinitarias",
+				"path": "M290,-637,470,-638,471,-469,288,-469Z"
+			},
+			{
+				"name": "Libertador",
+				"path": "M470,-638,666,-638,667,-468,471,-469z"
+			},
+			{
+				"name": "Barrio Nuevo",
+				"path": "M668,-639,825,-639,827,-469,667,-468z"
+			},
+			{
+				"name": "Pueblo Viejo",
+				"path": "M829,-639L960,-639L961,-468L827,-469,827,-639Z"
+			},
+			{
+				"name": "Romulo Betancourt",
+				"path": "M1,-468L114,-468L115,-319,2,-317,4,-468z"
+			},
+			{
+				"name": "Valle Verde",
+				"path": "M117,-468,288,-469,288,-317,114,-319Z"
+			},
+			{
+				"name": "Los Mangos",
+				"path": "M290,-469,470,-469,470,-317,288,-317z"
+			},
+			{
+				"name": "Cacerio Campo Alegre",
+				"path": "M472,-469,666,-468,668,-318L470,-317z"
+			},
+			{
+				"name": "Cacerio Cruz Blanca",
+				"path": "M670,-468,827,-469,827,-317,668,-318,672,-468z"
+			},
+			{
+				"name": "Cacerio Las Guayabitas",
+				"path": "M829,-469,961,-468,963,-317L827,-317L827,-469z"
+			},
+			{
+				"name": "Cacerio Los Mereyes",
+				"path": "M2,-317,1,-117,115,-116,115,-319z"
+			},
+			{
+				"name": "Cacerio Masparro",
+				"path": "M117,-319,289,-317,288,-117,115,-117z"
+			},
+			{
+				"name": "Sector Aguas Blancas",
+				"path": "M290,-317,470,-317,471,-116L288,-117z"
+			},
+			{
+				"name": "Sector Algarrobo",
+				"path": "M471,-317,666,-318,666,-116,470,-116z"
+			},
+			{
+				"name": "Sector Eucalipto",
+				"path": "M668,-318,826,-317,826,-115,666,-116z"
+			},
+			{
+				"name": "Sec. Mata de Mango",
+				"path": "M827,-319,962,-317,961,-117,826,-115z"
+			},
+			{
+				"name": "Sec.Melenero",
+				"path": "M1,-117,0,32L115,33,114,-116z"
+			},
+			{
+				"name": "San Rafael",
+				"path": "M117,-117,287,-117,289,33,115,32Z"
+			},
+			{
+				"name": "Sector Soco",
+				"path": "M289,-117,471,-116L471,34L289,33z"
+			},
+			{
+				"name": "Sector Tinaja",
+				"path": "M472,-116,666,-117,668,34,471,33z"
+			},
+			{
+				"name": "Otro",
+				"path": "M670,-116,826,-117,827,34,668,34z"
+			}
+		],
+		
+    }
+  ]
+    });
+});
+</script>
+{% endautoescape %}
+{% endblock afterJS %}

@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from registro.views import inicio, buscar_paciente, manuel, consulta, estadistica1, estadistica2
+from registro.views import inicio, mapa, addenf, std, buscar_paciente, manuel, consulta, estadistica1, estadistica2
 from django.contrib.auth.views import login, logout_then_login
 from django.contrib.auth.decorators import login_required
 
@@ -34,8 +34,9 @@ urlpatterns = [
     url(r'^estadisticas2/',login_required(estadistica2), name='estadisticas2'),
     url(r'accounts/login/',login,{'template_name':'login.html'},name='login'),
     url(r'^logout/',logout_then_login,name='logout'),
-
- 
+    url(r'^mapa/',login_required(mapa),name='mapa'),
+    url(r'^std/',login_required(std),name='std'),
+    url(r'^addenf/',addenf,name='addenf'),
 ] 
 if settings.DEBUG:
 	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

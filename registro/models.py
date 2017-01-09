@@ -108,7 +108,12 @@ class Consulta(models.Model):
 	def __str__(self):
 		return '%s %s %s' %(self.paciente,self.fecha_consulta,self.enfermedad_presente)
 
-
+class Std(models.Model):
+	nombre_enfermedad = models.ForeignKey(Enfermedad,null=True)
+	cod_enfermedad = models.CharField(max_length=200, null=True)
+	plan = models.TextField(max_length=2000,null=False)
+	def __str__(self):
+		return '%s %s' %(self.nombre_enfermedad, self.plan)
 
 
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from registro.models import Registro,Enfermedad,Medico,Consulta
-from .forms import RegistradoForm, ConsultaForm
+from registro.models import Registro,Enfermedad,Medico,Consulta,Std
+from .forms import RegistradoForm, ConsultaForm, StdForm
 
 
 
@@ -19,7 +19,12 @@ class Consultas (admin.ModelAdmin):
 	list_display=('fecha_consulta','paciente','medico_tratante','enfermedad_presente',)
 	form = ConsultaForm	
 
+class Stdss (admin.ModelAdmin):
+	list_display=('nombre_enfermedad','cod_enfermedad','plan',)
+	form = StdForm
+
 admin.site.register(Registro,Registrados)
 admin.site.register(Enfermedad,Enfermedades)
 admin.site.register(Medico,Medicos)
 admin.site.register(Consulta,Consultas)
+admin.site.register(Std,Stdss)
