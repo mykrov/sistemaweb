@@ -17,11 +17,16 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from registro.views import inicio, mapa, addenf, std, buscar_paciente, manuel, consulta, estadistica1, estadistica2
+from rest_framework import routers
+from registro.views import inicio, UserViewSet,RegistroViewSet, ConsultaViewSet, mapa, jsonmap, addenf, std, buscar_paciente, manuel, consulta, estadistica1, estadistica2
 from django.contrib.auth.views import login, logout_then_login
 from django.contrib.auth.decorators import login_required
+#Para la API Rest
+router = routers.DefaultRouter()
+router.register(r'consulta',ConsultaViewSet)
+router.register(r'user',UserViewSet)
+router.register(r'registro',RegistroViewSet)
 
-#from registro import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -37,6 +42,9 @@ urlpatterns = [
     url(r'^mapa/',login_required(mapa),name='mapa'),
     url(r'^std/',login_required(std),name='std'),
     url(r'^addenf/',addenf,name='addenf'),
+    url(r'^jsonm/',jsonmap,name='jsonmap'),
+    url(r'^api/',include(router.urls)),
+
 ] 
 if settings.DEBUG:
 	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

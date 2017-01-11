@@ -8,7 +8,9 @@ from django.core import serializers
 from django.contrib import messages
 from datetime import datetime, timedelta
 from django.forms.models import inlineformset_factory
-
+from .serializers import ConsultaSerializer, UserSerializer, RegistroSerializer
+from rest_framework import viewsets
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -114,3 +116,28 @@ def addenf (request):
 		return HttpResponseRedirect('/addenf/') 
 	context = {"formulario2":formulario2}
 	return render(request,'addenf.html',context)
+
+def modificarplan():
+	contexto={}
+	return render(request,'modplan.html',contexto)
+
+def jsonmap (request):
+	semana = datetime.today() - timedelta(days=7)
+	hoy = datetime.today()
+	week = Consulta.objects.filter(fecha_consulta__gte=semana)
+	t=week.annotate(Count('paciente__urb'))
+	print(t)
+	data = serializers.serialize ('json',t)	
+	return HttpResponse (data,content_type='application/json')
+
+class ConsultaViewSet (viewsets.ModelViewSet):
+	queryset = Consulta.objects.all()
+	serializer_class = ConsultaSerializer
+
+class UserViewSet (viewsets.ModelViewSet):
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+
+class RegistroViewSet (viewsets.ModelViewSet):
+	queryset = Registro.objects.all()
+	serializer_class = RegistroSerializer

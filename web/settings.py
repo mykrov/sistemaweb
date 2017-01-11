@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'registro',
     #para la seleccion dinamica del formulario de registro
     'smart_selects',
+    'rest_framework',
 
 ]
 

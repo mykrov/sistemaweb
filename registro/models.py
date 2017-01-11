@@ -19,14 +19,17 @@ PARROQUIA_CHOICES = (
 
 URB_CHOICES = (
 	('12m', '12 de Marzo'),
+	('12m2', '12 de Marzo II'),
 	('12oc', '12 de Octubre'),
 	('2dic', '2 de Diciembre'),
 	('BelL', 'Beltran Lucena'),
 	('BnVen', 'Buena Ventura'),
 	('BnVis', 'Buena Vista'),
 	('ChiT', 'Chico Toro'),
+	('Ceib', 'La Ceiba'),
 	('Cont', 'Conticinio'),
 	('ElC', 'El Centro'),
+	('ElC2','El Centro 2'),
 	('Merc', 'El Mercadito'),
 	('ElNz', 'El Nazareno'),
 	('ElRe', 'El Retruque'),
@@ -62,7 +65,7 @@ SEX_CHOICES =(
 # Create your models here.
 # Modelo usado para los registros de pacientes nuevos. PK se usa la Cedula
 class Registro(models.Model):
-	nombre=models.CharField(max_length=50)
+	nombre=models.CharField(max_length=52)
 	apellido=models.CharField(max_length=50)
 	cedula=models.IntegerField(primary_key=True, unique=True)
 	telefono=models.CharField(max_length=11,blank=True,null=True)
@@ -100,9 +103,9 @@ class ManejadorEnfermedad (models.Manager):
 class Consulta(models.Model):
 	fecha_consulta = models.DateTimeField(default=timezone.now)
 	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE)
-	enfermedad_presente=models.ForeignKey(Enfermedad,null=False)
-	tratamiento = models.CharField(max_length=100, null=True)
-	observacion = models.CharField(max_length=100, null=True)
+	enfermedad_presente = models.ForeignKey(Enfermedad,null=False)
+	tratamiento = models.TextField(max_length=2000, null=True)
+	observacion = models.TextField(max_length=2000, null=True)
 	medico_tratante = models.ForeignKey(Medico, null=True)
 	objects = ManejadorEnfermedad()
 	def __str__(self):
