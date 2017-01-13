@@ -47,7 +47,7 @@ def consulta (request):
 def buscar_paciente (request):
 	search = request.POST['busqueda']
 	try:
-		paciente = Registro.objects.get(cedula=search)
+		paciente = Registro.objects.get(cedula=search or 1)
 		if request.method == 'POST':
 			form = RegistradoForm(instance=paciente)
 			table = Consulta.objects.filter(paciente=search)
