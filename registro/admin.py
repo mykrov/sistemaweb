@@ -1,6 +1,6 @@
 from django.contrib import admin
-from registro.models import Registro,Enfermedad,Medico,Consulta,Std
-from .forms import RegistradoForm, ConsultaForm, StdForm
+from registro.models import Registro,Enfermedad,Medico,Consulta,Std,Mapa
+from .forms import RegistradoForm, ConsultaForm, StdForm, MapaForm
 
 
 
@@ -23,8 +23,13 @@ class Stdss (admin.ModelAdmin):
 	list_display=('nombre_enfermedad','cod_enfermedad','plan',)
 	form = StdForm
 
+class Mapas(admin.ModelAdmin):
+	list_display=('name',)
+	form = MapaForm
+
 admin.site.register(Registro,Registrados)
 admin.site.register(Enfermedad,Enfermedades)
 admin.site.register(Medico,Medicos)
 admin.site.register(Consulta,Consultas)
 admin.site.register(Std,Stdss)
+admin.site.register(Mapa,Mapas)

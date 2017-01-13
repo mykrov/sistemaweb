@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Count,Avg
+from django.db.models import Count, Avg, Max,Min
 from django.http import HttpResponse,Http404, HttpResponseRedirect
 from .forms import RegistradoForm, ConsultaForm, EnfermedadForm, StdForm
-from .models import Registro, Enfermedad, Consulta, Std
+from .models import Registro, Enfermedad, Consulta, Std, Mapa
 from django.views.generic import TemplateView
 from django.core import serializers
 from django.contrib import messages
@@ -67,9 +67,10 @@ def buscar_paciente (request):
 def estadistica1 (request):
 	#consulta total
 	datos = Consulta.objects.values("enfermedad_presente__nombre_enfermedad").annotate(Count("enfermedad_presente"))
+	
 	#Consulta por rango de fechas
-	desde='2016-01-01'
-	hasta='2016-10-21'
+	desde='2016-10-01'
+	hasta='2017-01-13'
 	rango= '%s %s %s' 	%(desde,'a',hasta)
 	d= Consulta.objects.filter(fecha_consulta__range=[desde,hasta]).values('enfermedad_presente__nombre_enfermedad')
 	x= d.annotate(Count('enfermedad_presente__nombre_enfermedad'))
@@ -78,21 +79,27 @@ def estadistica1 (request):
 
 def estadistica2 (request):
 	#Datos de la semana
-	semana = datetime.today() - timedelta(days=7)
+	semana = datetime.today() - timedelta(days=360)
 	hoy = datetime.today()
 	week = Consulta.objects.filter(fecha_consulta__gte=semana).values('enfermedad_presente__nombre_enfermedad')
 	x=week.annotate(Count('enfermedad_presente__nombre_enfermedad'))
+	w=x.aggregate(Max('enfermedad_presente'))
 	contexto = {'porfecha':x,'semana':semana}
 	return render (request, 'graficos2.html',contexto)
 
 #vista del mapa
 def mapa (request):
-	semana = datetime.today() - timedelta(days=7)
-	hoy = datetime.today()
-	week = Consulta.objects.filter(fecha_consulta__gte=semana).values('paciente__urb')
-	x=week.annotate(Count('paciente__urb'))
-	print (x)
-	contexto={'datos':x,'desde': semana,}
+
+	semana = datetime.today() - timedelta(days=200)
+	hoy = datetime.today()	
+	#traigo el mapa SVG
+	all=Mapa.objects.all().values('name','path')
+	week = Consulta.objects.filter(fecha_consulta__gte=semana).order_by('enfermedad_presente__nombre_enfermedad')[0]
+	#x=week.annotate(Count('paciente__urb'))
+	print(week)
+	#x=week.annotate(Count('paciente__urb'))
+	
+	contexto={'datos':week,'desde': semana,}
 	return render (request,'mapa.html', contexto)
 
 #Crear un plan para las enfermedades
@@ -118,6 +125,7 @@ def addenf (request):
 	return render(request,'addenf.html',context)
 
 def modificarplan():
+
 	contexto={}
 	return render(request,'modplan.html',contexto)
 
@@ -141,3 +149,15 @@ class UserViewSet (viewsets.ModelViewSet):
 class RegistroViewSet (viewsets.ModelViewSet):
 	queryset = Registro.objects.all()
 	serializer_class = RegistroSerializer
+
+def planes (request):
+
+	desde='2016-01-01'
+	hasta='2017-01-13'
+	maxima1= Consulta.objects.filter(fecha_consulta__range=[desde,hasta]).values('enfermedad_presente__nombre_enfermedad').annotate(total=Count('enfermedad_presente')).order_by('-total')[0]
+	name=maxima1['enfermedad_presente__nombre_enfermedad']
+	total=maxima1['total']
+	i= Std.objects.filter(nombre_enfermedad__nombre_enfermedad=name).values('plan')
+	plantxt=i[0]['plan']
+	contexto={'name':name,'plan':plantxt,'desde':desde,'hasta':hasta,'total':total}
+	return render (request,'planes.html',contexto)

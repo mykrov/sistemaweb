@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Textarea, extras
-from .models import Registro, Consulta, Std, Enfermedad
+from .models import Registro, Consulta, Std, Enfermedad,Mapa
 from datetime import datetime
 from registro import models
 from django.db import models
@@ -42,3 +42,8 @@ class EnfermedadForm (forms.ModelForm):
 	class Meta:
 		model = Enfermedad
 		fields = ["cod_enfermedad","nombre_enfermedad",]
+
+class MapaForm (forms.ModelForm):
+	class Meta:
+		model=Mapa
+		fields=['name','path',]
