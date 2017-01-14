@@ -12,7 +12,6 @@
     </div>
 {% endblock seccion %}
 {% block maincontent %}
-{% autoescape off %}
 
 <div class="col-md-6">
     
@@ -20,6 +19,8 @@
 	<canvas id="total" style="height: 500px; min-width: 310px; max-width: 600px; margin: 0 auto"></canvas>
     
 </div>
+
+{% autoescape off %}
 <script>  
 var uni = {{ datos }};
 var ctx = document.getElementById("total");
@@ -72,7 +73,9 @@ var myChart = new Chart(ctx, {
     
 </div>
 <script>
-var uni2 = {{ porfecha }};
+
+var uni2 = {{porfecha}}
+
 var ctx2 = document.getElementById("porfecha");
 var porfechag = new Chart(ctx2, {
     type: 'bar',

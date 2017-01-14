@@ -16,7 +16,7 @@ class Medicos (admin.ModelAdmin):
 	list_display=('cedula_medico','nombre_medico','apellido_medico',)
 
 class Consultas (admin.ModelAdmin):
-	list_display=('fecha_consulta','paciente','medico_tratante','enfermedad_presente',)
+	list_display=('fecha_consulta','paciente','medico_tratante','enfermedad_presente','ubicacion')
 	form = ConsultaForm	
 
 class Stdss (admin.ModelAdmin):

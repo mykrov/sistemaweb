@@ -4,11 +4,6 @@ from .models import Registro, Consulta, Std, Enfermedad,Mapa
 from datetime import datetime
 from registro import models
 from django.db import models
-SEX_CHOICES =(
-	('M', 'M'),
-	('F', '8'),
-	)
-
 
 class RegistradoForm (forms.ModelForm):
 	class Meta:
@@ -22,8 +17,8 @@ class RegistradoForm (forms.ModelForm):
 class ConsultaForm (forms.ModelForm):
 	class Meta:
 		model = Consulta
-		fields = ["paciente","enfermedad_presente","tratamiento","observacion","medico_tratante","fecha_consulta",]
-		labels = {'obseracion':('Observación')}
+		fields = ["paciente","enfermedad_presente","tratamiento","observacion","ubicacion","medico_tratante","fecha_consulta",]
+		labels = {'obseracion':('Observación'),'ubicacion':('Urb/Barrio')}
 		widgets = {
             'tratamiento': Textarea(attrs={'cols': 40, 'rows': 10}), 
             'observacion': Textarea(attrs={'cols': 5, 'rows': 2}),

@@ -9,7 +9,7 @@ MUNICIPIO_CHOICES = (
     ('BA', 'Barinas'),
     ('OT', 'Otro'),
 )
-
+deffault='Otra'
 PARROQUIA_CHOICES = (
 	('BARR', 'Barrancas'),
 	('MASP', 'Masparrito'),
@@ -100,6 +100,12 @@ class ManejadorEnfermedad (models.Manager):
 	def contar (self,keyword):
 		return self.filter(enfermedad_presente__nombre_enfermedad__icontains=keyword).count()
 
+class Mapa(models.Model):
+	name = models.CharField(max_length=100, null=False)
+	path = models.TextField(max_length=2000, null=True)
+	def __str__(self):
+		return '%s' %(self.name)
+
 class Consulta(models.Model):
 	fecha_consulta = models.DateTimeField(default=timezone.now)
 	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE)
@@ -107,6 +113,7 @@ class Consulta(models.Model):
 	tratamiento = models.TextField(max_length=2000, null=True)
 	observacion = models.TextField(max_length=2000, null=True)
 	medico_tratante = models.ForeignKey(Medico, null=True)
+	ubicacion=models.ForeignKey(Mapa, null=False)
 	objects = ManejadorEnfermedad()
 	def __str__(self):
 		return '%s %s %s' %(self.paciente,self.fecha_consulta,self.enfermedad_presente)
@@ -118,11 +125,6 @@ class Std(models.Model):
 	def __str__(self):
 		return '%s %s' %(self.nombre_enfermedad, self.plan)
 
-class Mapa(models.Model):
-	name = models.CharField(max_length=100, null=False)
-	path = models.TextField(max_length=2000, null=True)
-	def __str__(self):
-		return '%s %s' %(self.name,self.path)
 
 
 
