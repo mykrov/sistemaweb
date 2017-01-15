@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    #para el stilo de Bootstrap en los formularios
+    #para el style de Bootstrap en los formularios
     'bootstrapform',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

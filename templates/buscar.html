@@ -31,7 +31,7 @@
 						{% if table %}
 						{% for table in table %}
 						<tr>
-							<td>{{ table.fecha_consulta }}</td>
+							<td>{{ table.fecha_consulta|date:"d-M-Y"}}</td>
 							<td>{{ table.medico_tratante }}</td>
 							<td>{{ table.enfermedad_presente }}</td>
 							<td>{{ table.tratamiento }}</td>

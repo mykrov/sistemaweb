@@ -4,7 +4,7 @@
 
 {% block head %}
 
-<script src="http://code.highcharts.com/maps/highmaps.js"></script>
+
 
 {% endblock head %}
 
@@ -19,7 +19,6 @@
         <li class="active"><a href="/mapa">Mapa</a></li>
     </div>
     <hr>	
-	<div id="container"	style="height: 600px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
 	<div id="container2" style="height: 600px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
 
 
@@ -27,57 +26,6 @@
 
 {% block afterJS %}
 {% autoescape off %}
-<script>
-
-$(function () {
-
-    // Initiate the chart
-    $('#container').highcharts('Map', {
-
-    	chart : {
-                borderWidth : 1
-            },
-
-            title : {
-                text : 'Casos en Sectores'
-            },
-
-            legend: {
-                layout: 'horizontal',
-                borderWidth: 0,
-                backgroundColor: 'rgba(255,255,255,0.85)',
-                floating: true,
-                verticalAlign: 'top',
-                y: 25
-            },
-
-            mapNavigation: {
-                enabled: true
-            },
-
-            colorAxis: {
-                min: 1,
-                type: 'logarithmic',
-                minColor: '#EEEEFF',
-                maxColor: '#000022',
-                stops: [
-                    [0, '#EFEFFF'],
-                    [0.67, '#4444FF'],
-                    [1, '#000022']
-                ]
-            },
-
-        	series: [{
-
-			"type": "map",
-			"data": {{mapa}},
-
-				}
-			]
-
-});
-});
-</script>
 <script>
 
 $(function () {

@@ -7,9 +7,10 @@
 {% endblock seccion %}
 
 {% block maincontent %}
-	<form  method="POST" action="">{% csrf_token %}
+	<form  class="form-horizontal" method="POST" action="" role='form'>{% csrf_token %}
 		{{formularioConsulta|bootstrap_horizontal}}
-	  	<hr>
-	    <button type="submit" class="btn btn-primary center-block btn-lg">Guardar Consulta</button>
+		<div class="col-lg-8 col-sm-offset-2">
+			<button type="submit" class="btn btn-primary center-block btn-lg">Guargar Consulta</button>
+		</div>
     </form>
 {% endblock maincontent %}

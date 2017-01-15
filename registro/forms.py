@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Textarea, extras
+from django.forms import ModelForm, Textarea, extras,TextInput,	IntegerField
 from .models import Registro, Consulta, Std, Enfermedad,Mapa
 from datetime import datetime
 from registro import models
@@ -13,7 +13,12 @@ class RegistradoForm (forms.ModelForm):
 		labels={
 			'cedula':('Cédula'),'direccion':('Dirección'),'telefono':('Teléfono'),'urb':('Urbanización/Barrio')
 		}
-
+		widgets = {
+            'nombre': TextInput(attrs={'placeholder': 'Nombres del paciente'}),
+            'apellido': TextInput(attrs={'placeholder': 'Apellidos del paciente'}),
+            'cedula': TextInput(attrs={'placeholder': 'Sólo números'}),
+            'telefono': TextInput(attrs={'placeholder': 'Sólo números'}),
+        }
 class ConsultaForm (forms.ModelForm):
 	class Meta:
 		model = Consulta

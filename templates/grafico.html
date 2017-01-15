@@ -12,10 +12,10 @@
     </div>
 {% endblock seccion %}
 {% block maincontent %}
-
+<hr>
 <div class="col-md-6">
     
-    <h4>Casos Totales </h4>
+    <h4 class="text-center">Casos Totales </h4>
 	<canvas id="total" style="height: 500px; min-width: 310px; max-width: 600px; margin: 0 auto"></canvas>
     
 </div>
@@ -68,7 +68,7 @@ var myChart = new Chart(ctx, {
 </script>
 <div class="col-md-6">
     
-    <h4>Casos en el Periodo de {{rango}} </h4>
+    <h4 class="text-center">Casos en el Periodo de {{rango}} </h4>
     <canvas id="porfecha" style="height: 500px; min-width: 310px; max-width: 600px; margin: 0 auto" ></canvas>
     
 </div>

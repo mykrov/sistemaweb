@@ -153,11 +153,12 @@ class RegistroViewSet (viewsets.ModelViewSet):
 #Mostrar los planes de las diferentes enfermedades
 def planes (request):
 	desde='2016-01-01'
-	hasta='2017-01-13'
+	hasta='2017-01-20'
 	maxima1= Consulta.objects.filter(fecha_consulta__range=[desde,hasta]).values('enfermedad_presente__nombre_enfermedad').annotate(total=Count('enfermedad_presente')).order_by('-total')[0]
 	name=maxima1['enfermedad_presente__nombre_enfermedad']
 	total=maxima1['total']
 	i= Std.objects.filter(nombre_enfermedad__nombre_enfermedad=name).values('plan')
 	plantxt=i[0]['plan']
+	print (plantxt)
 	contexto={'name':name,'plan':plantxt,'desde':desde,'hasta':hasta,'total':total}
 	return render (request,'planes.html',contexto)

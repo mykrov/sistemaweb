@@ -16,11 +16,17 @@
         <li><a href="#">Modificar Plan</a></li>
         <li><a href="/planes/">Ejecutar</a></li>  
     </div>
-	<form  method="POST" action="">{% csrf_token %}
+    <hr>
+    
+        
+	   <form  class="form-horizontal" method="POST" action="">{% csrf_token %}
 		{{formulario|bootstrap_horizontal}}
-	  	<hr>
-	    <button type="submit" class="btn btn-primary center-block btn-lg">Guardar</button>
-    </form>
+	  	    <div class="col-lg-8 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary center-block btn-lg">Guargar Plan</button>
+            </div>
+        </form>
+        
+    
     </div>
 </div>
 {% endblock maincontent %}
