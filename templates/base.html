@@ -12,12 +12,10 @@
     <style>
     body {
         padding-top: 5px;
+        li.a: color:black;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }   
-    table {
-        table-layout: fixed;
-        word-wrap: break-word;
-    }
+    
     
     </style>
     <!-- jQuery -->
@@ -28,12 +26,16 @@
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
     
     <link href="{% static 'css/simple-sidebar.css' %}" rel="stylesheet">
-    <link href="{% static 'css/tablas.css' %}" rel="stylesheet">
+    <link href="{% static 'css/tablas1.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.min.css">
     <!-- ChartJS -->
     <script src="{% static 'js/Chart.js' %}" type="text/javascript"></script>
     <!-- Highmaps -->
-    <script src="{% static 'js/highmaps.js' %}"></script>
+    <script src="{% static 'js/highstock.js' %}"></script>
+    <!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
+    <!--  <script src="{% static 'js/highmaps.js' %}"></script> -->
+    <script src="{% static 'js/highmapsmodule.js' %}"></script>
+    
     <script src="{% static 'js/exporting.js' %}"></script>
     <script src="{% static 'js/offline-exporting.js' %}"></script>
     
@@ -78,13 +80,13 @@
                         <li><a href="/std/">Toma de Decisiones</a></li>
                         <li><a href="/admin/">Manejo de Data</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Agregar Médico</a></li>
+                        <li><a href="#">Ayuda</a></li>
                         </ul>
                     </li>
                     <li>
                         <form class="form-inline " method="POST" action="/buscar/">{% csrf_token %}
                                 <div class="form-group">
-                                <input type="number" name= "busqueda" class="form-control input-md" placeholder="Buscar Cedula">
+                                <input type="number" name= "busqueda" class="form-control input-md" placeholder="Buscar Cédula">
                                 
                                 </div>
                                 <div class="btn-group">

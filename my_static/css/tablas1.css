@@ -1,21 +1,25 @@
 table {
     border-collapse: separate;
     border-spacing: 0 5px;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 thead th {
-    background-color: #006DCC;
+    background-color: #356c9c;
     color: white;
 }
 
 tbody td {
-    background-color: #EEEEEE;
+    background-color: #d8e7f9;
+    
 }
 
 tr td:first-child,
 tr th:first-child {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
+
 }
 
 tr td:last-child,

@@ -1,6 +1,6 @@
 from django.db import models
-from datetime import datetime, timedelta
-from django.utils import timezone
+from datetime import datetime, timedelta, date
+from django.utils import timezone 
 
 # Opciones de Seleccion para los  formularios de ubicacion.
 MUNICIPIO_CHOICES = (
@@ -86,7 +86,7 @@ class Enfermedad(models.Model):
 	nombre_enfermedad=models.CharField(max_length=100,null=False)
 
 	def __str__(self):
-		return '%s %s' %(self.cod_enfermedad,self.nombre_enfermedad)
+		return '%s' %(self.nombre_enfermedad)
 
 class Medico(models.Model):
 	nombre_medico=models.CharField(max_length=100, null=True)
@@ -107,14 +107,15 @@ class Mapa(models.Model):
 		return '%s' %(self.name)
 
 class Consulta(models.Model):
-	fecha_consulta = models.DateTimeField(default=timezone.now)
-	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE)
+	fecha_consulta = models.DateField(default=date.today())
+	paciente = models.ForeignKey(Registro, on_delete=models.CASCADE,related_name='pac')
 	enfermedad_presente = models.ForeignKey(Enfermedad,null=False)
 	tratamiento = models.TextField(max_length=2000, null=True)
 	observacion = models.TextField(max_length=2000, null=True)
 	medico_tratante = models.ForeignKey(Medico, null=True)
 	ubicacion=models.ForeignKey(Mapa, null=False)
 	objects = ManejadorEnfermedad()
+
 	def __str__(self):
 		return '%s %s %s' %(self.paciente,self.fecha_consulta,self.enfermedad_presente)
 

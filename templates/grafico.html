@@ -7,7 +7,7 @@
         <li class="active"><a href="/estadisticas/">General</a></li>
         <li><a href="/estadisticas2/">Ultimos 7 Dias</a></li>
         <li><a href="#">Ultimo Mes</a></li>
-        <li><a href="#">Personalizado</a></li>
+        <li><a href="/rfecha/">Personalizado</a></li>
         <li><a href="/mapa">Mapa</a></li>
     </div>
 {% endblock seccion %}
@@ -84,6 +84,117 @@ var porfechag = new Chart(ctx2, {
         datasets: [{
             label: 'Casos',
             data: uni2.map((el) => el.enfermedad_presente__nombre_enfermedad__count),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+<div class="col-md-12">
+<hr>
+    <h4 class="text-center">Casos en el Periodo de {{rango}} </h4>
+    <div id="hmsemana" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
+<script>
+    $(function () {
+    Highcharts.chart('hmsemana', {
+        chart: {
+            type: 'areaspline'
+        },
+        title: {
+            text: 'Consultas a la Semana - Hombre vs Mujer'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 150,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        xAxis: {
+            categories: [
+                'Lunes',
+                'Martes',
+                'Miercoles',
+                'Jueves',
+                'Viernes',
+                'Sabado',
+                'Domingo'
+            ],
+            plotBands: [{ // visualize the weekend
+                from: 4.5,
+                to: 4.5,
+                color: 'rgba(68, 170, 213, .2)'
+            }]
+        },
+        yAxis: {
+            title: {
+                text: 'Numero de Consultas'
+            }
+        },
+        tooltip: {
+            shared: true,
+            valueSuffix: ' Consultas'
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                fillOpacity: 0.3
+            }
+        },
+        series: [{
+            name: 'Hombre',
+            data: {{ hm }}.value
+        }]
+    });
+}); 
+</script>
+<div class="col-md-6">
+    
+    <h4 class="text-center">Hombre - Mujer en el rango de fecha {{rango }} </h4>
+    <canvas id="hm" style="height: 500px; min-width: 310px; max-width: 600px; margin: 0 auto" ></canvas>
+    
+</div>
+<script>
+
+var uni3 = {{hm}}
+var ctx3 = document.getElementById("hm");
+var porfechag = new Chart(ctx3, {
+    type: 'pie',
+    data: {
+        labels: uni3.map((el) => el.paciente_id__sexo),
+        datasets: [{
+            label: 'Casos',
+            data: uni3.map((el) => el.value),
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
