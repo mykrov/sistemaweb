@@ -208,3 +208,8 @@ def rfecha (request):
 		return HttpResponseRedirect('/rfecha/')
 
 	return render (request,'rfecha.html',contexto)
+
+def ayuda (request):
+	context={}
+	
+	return render (request,'ayuda.html',context)

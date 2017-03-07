@@ -18,7 +18,7 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from rest_framework import routers
-from registro.views import inicio, rfecha, UserViewSet,RegistroViewSet, planes, ConsultaViewSet, mapa, jsonmap, addenf, std, buscar_paciente, manuel, consulta, estadistica1, estadistica2
+from registro.views import inicio,ayuda,rfecha,UserViewSet,RegistroViewSet,planes,ConsultaViewSet,mapa,jsonmap,addenf, std, buscar_paciente, manuel, consulta, estadistica1, estadistica2
 from django.contrib.auth.views import login, logout_then_login
 from django.contrib.auth.decorators import login_required
 #Para la API Rest
@@ -45,6 +45,7 @@ urlpatterns = [
     url(r'^jsonm/',jsonmap,name='jsonmap'),
     url(r'^api/',include(router.urls)),
     url(r'^planes/',login_required(planes), name='planes'),
+    url(r'^ayuda/',login_required(ayuda), name='ayuda'),
     url(r'^rfecha/',login_required(rfecha), name='rfecha'),
 
 ] 
